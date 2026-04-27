@@ -1,10 +1,10 @@
 name: Daily Tweet Bot
-
-on:
-  schedule:
-    - cron: '0 1 * * *'
-  workflow_dispatch:
-
+//hide by x wants py 20260427 sad 
+//on:
+//  schedule:
+//    - cron: '0 1 * * *'
+//  workflow_dispatch:
+//
 jobs:
 if: false
   build:
