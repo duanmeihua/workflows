@@ -1,0 +1,33 @@
+name: Daily Tweet Bot
+
+on:
+  schedule:
+    # 这里的 cron 表达式代表每天北京时间上午 9:00 运行
+    # (UTC 时间 01:00 = 北京时间 09:00)
+    - cron: '0 1 * * *'
+  workflow_dispatch: # 这个选项能让你在 GitHub 页面上点按钮手动测试
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install tweepy
+
+      - name: Run tweet script
+        env:
+          # 这里的变量名必须和你一会儿在 Settings 秘密里设置的一模一样
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: python tweet.py
